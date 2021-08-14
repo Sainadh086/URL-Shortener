@@ -57,7 +57,7 @@ def web_page():
             response = short_url(long_url)
             shortend_url = response["short_url"]
             json_data[long_url] = shortend_url
-            
+
             #writing the new url to the local file
             json_file = open('url.txt','w')
             json.dump(json_data, json_file)
@@ -69,14 +69,5 @@ def web_page():
     
     return render_template('home.html', status=status)
 
-
-@app.route('/rest_api/<string:name>', methods=['GET'])
-def index(name):
-    return jsonify({'Hello': name})
-
-@app.route('/short/<string:name>', methods=['GET'])
-def new(name):
-    return jsonify({'Hello': name})
-
 if __name__=="__main__":
-    app.run(host="127.0.0.1", port=8080, debug=True)
+    app.run(host="0.0.0.0", port=8080, debug=False)
