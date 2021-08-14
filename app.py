@@ -49,7 +49,6 @@ def web_page():
         json_file.close()
 
         #to check the long url is already existing or not.
-        #json_data = json.load(json_file)
 
         if long_url in json_data.keys():
             shortend_url = json_data[long_url]
@@ -61,8 +60,7 @@ def web_page():
             #writing the new url to the local file
             json_file = open('url.txt','w')
             json.dump(json_data, json_file)
-
-        json_file.close()
+            json_file.close()
         #json.dump(json_data, 'url.txt')
         return render_template('home.html', status=True, shortend_url=shortend_url)
 

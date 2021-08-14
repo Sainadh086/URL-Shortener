@@ -10,4 +10,6 @@ RUN 	apt-get update && apt install  python3-pip -y && \
 
 EXPOSE 8080
 
-cmd ["python3","URL_SHORTNER/app.py"]
+WORKDIR URL_SHORTNER
+
+cmd ["python3","app.py"]
