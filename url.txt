@@ -1,0 +1,1 @@
+{"long_url": "short_url", "mail": "m", "https://mail.google.com/mail/u/0/?tab=om#inbox/FMfcgzGkZspDFctShMvTkSJVtzTLScxH": "https://cutt.ly/sQJR0v7"}

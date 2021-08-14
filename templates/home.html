@@ -1,0 +1,22 @@
+<html>
+<div style="text-align: center;">
+    
+          <div style="text-align: center;padding-bottom: 40px;padding-top: 40px;"> 
+              <h1 style="color: blue;">Shorten URL</h1>
+          </div>
+          </div>
+<body style="text-align:center">
+	<form action='/', method="POST">
+		<h2> Enter URL Below</h2>
+		<input type="text" name="long_url"></input><br>
+		<br>	<input type="submit" value="Submit"></input>
+	</form>
+
+	{% if status %}
+	  <br> <br>
+
+	  <h2>Shortend URL : <a href={{shortend_url}}>{{shortend_url}}</a></h2>
+	{% endif %}
+</body>
+
+</html>
