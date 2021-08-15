@@ -14,8 +14,10 @@
 
 	{% if status %}
 	  <br> <br>
-
+	{% if shortend_url %}
 	  <h2>Shortend URL : <a href={{shortend_url}}>{{shortend_url}}</a></h2>
+	{% else %}
+		<h2>{{ data }}</h2>
 	{% endif %}
 </body>
 
