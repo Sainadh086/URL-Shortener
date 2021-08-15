@@ -1,7 +1,11 @@
-#URL_SHORTNER
+# URL_SHORTNER
 
 	Language used :- Python
 	Built using :- Flask
+
+## Cuttly Account
+
+Generating the shortend api using Cuttly services. To get the Cuttly api key create an account <a href ="https://cuttly/register" >click_here</a>
 
 ## Container usage
 
