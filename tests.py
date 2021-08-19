@@ -17,11 +17,9 @@ def send(url):
 
 
 # sending request in wrong format
-
 def test_wrong_url(url):
     response = requests.post(url='http://127.0.0.1:8080/short_url/', data={'url':url})
-    print(response)
-    return response.json()
+    return response.text
 
 if __name__ == '__main__':
     long_url =  'https://hub.docker.com/repository/docker/sainadh086/url-shortner'

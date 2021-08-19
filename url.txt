@@ -1,1 +1,1 @@
-{"long_url": "short_url", "mail": "m", "https://mail.google.com/mail/u/0/?tab=om#inbox/FMfcgzGkZspDFctShMvTkSJVtzTLScxH": "https://cutt.ly/sQJR0v7", "https://hub.docker.com/repository/docker/sainadh086/url-shortner": "https://cutt.ly/oQK2mqt"}
+{"long_url": "short_url", "mail": "m", "https://www.educative.io/courses/grokking-the-system-design-interview/m2ygV4E81AR#div-stylecolorblack-background-colore2f4c7-border-radius5px-padding5px4-system-apisdiv": "E09D817B4097", "https://github.com/Sainadh086/URL-Shortener/issues": "C784EE9E275D"}

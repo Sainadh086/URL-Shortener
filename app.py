@@ -3,6 +3,7 @@ import os
 import json
 from flask import Flask, request, jsonify, render_template, redirect, url_for
 import requests
+import datetime
 from werkzeug.wrappers import response
 
 app = Flask(__name__)
@@ -19,29 +20,56 @@ def check_url(url):
     json_file = open('url.txt','r')
     json_data = json.load(json_file)
     json_file.close()
+    print("*"*20)
+    print("url :", url)
     if url in json_data.keys():
         return json_data[url]
     else:
-        #reading CUTTLY_API_KEY from environment variable
-        api_key = os.environ['CUTTLY_API_KEY']
-        api_url = f"https://cutt.ly/api/api.php?key={api_key}&short={url}"
-        #sending the post request to cuttly account for converting big url to shortend url
-        shorten_response =  requests.get(api_url).json()["url"]
-        
-        # runs if the status is successfull
-        if shorten_response["status"] == 7:
-            shorten_link = shorten_response['shortLink']
+        #creating random string for short url
+        random_string = os.urandom(6)
+        #converting the random string to hexadecimal
+        short_str = random_string.hex().upper()
+        check_data = {y:x for x,y in json_data.items()}
+        while short_str in check_data.keys():
+            random_string = os.urandom(6)
+            short_str = random_string.hex().upper()
         #writing the shortend url to local file
-        json_data[url] = shorten_link
+        json_data[url] = short_str
         json_file = open('url.txt','w')
         json.dump(json_data, json_file)
         json_file.close()
         #returning the shortend url
+        shorten_link = "http://127.0.0.1:8080/rd/"+short_str
         return shorten_link
 
+#redirecting the short url to the original url
+@app.route("/rd/<short_str>", methods=['GET'])
+def url_redirect(short_str):
+    '''
+    Taking the Shorturl as input and redirecting to original url
+    '''
+    print("*"*20)
+    print(short_str)
+    #checking if the short url is present in the local file
+    json_file = open('url.txt','r')
+    json_data = json.load(json_file)
+    json_file.close()
+
+    #converting to (short url, long url) 
+    json_data = {y:x for x,y in json_data.items()}
+    if short_str in json_data.keys():
+        #redirecting to the original url
+        long_url = json_data[short_str]
+        return redirect(long_url, code=302)
+    else:
+        #redirecting to the error page
+        return redirect(url_for('error_page'), code=302)
+    
+
+
 # REST API to shorten the URL
-@app.route('/short_url/', methods=['GET', 'POST'])
-def short_url(url=None,method=None):
+@app.route('/short_url/', methods=['GET'])
+def short_url(url='',method=None):
     '''
     url : long url sent as a request
     method: method for the type of  request
@@ -49,16 +77,16 @@ def short_url(url=None,method=None):
     This function is used as a REST API to convert long url to short url.
     '''
     # GET request
-    if request.method == "GET" or method == "GET":
-        url = request.args.get('url')
-        shorten_link = check_url(url)
-        data = {"status" : "Success", "short_url":shorten_link}
-        # returning the shortend url
-        return jsonify(data)
-
-    # runs if get request is not used
-    data = {"Status" : "Failed", "Remarks" : "Retry using GET Request" }
+    try:
+        if request.method == "GET":
+            url = request.args.get('url')
+    except:
+        pass
+    shorten_link = check_url(url)
+    data = {"status" : "Success", "short_url":shorten_link}
+    # returning the shortend url
     return jsonify(data)
+
 
 
 # a simple webpage to use the above rest api
@@ -73,14 +101,14 @@ def web_page():
     if request.method == 'POST':
         #getting long url from the webpage
         long_url = request.form.get('long_url')
-
+        print("long_url :", long_url)
         #sending the request to shorten the url
         response = short_url(url=long_url,method="GET")
         
         #checking the status of the response
         data = json.loads(response.get_data().decode("utf-8"))
         if data['short_url']:
-            return render_template('home.html', status=True, shortend_url=shortend_url)
+            return render_template('home.html', status=True, shortend_url=data['short_url'])
         else:
             return render_template('home.html', status=True, data=data['Remarks'])
     
