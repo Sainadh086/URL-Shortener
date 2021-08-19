@@ -3,13 +3,9 @@
 	Language used :- Python
 	Built using :- Flask
 
-## Cuttly Account
-
-Generating the shortend api using Cuttly services. To get the Cuttly api key create an account <a href ="https://cuttly/register" >click_here</a>
-
 ## Container usage
 
-	- docker run -itd --name short-url -p 8080:8080 -e CUTTLY_API_KEY="<your_api_key>" sainadh086/url-shortner
+	- docker run -itd --name short-url -p 8080:8080 sainadh086/url-shortner
 
 ## Rest API
 	
@@ -18,7 +14,9 @@ Generating the shortend api using Cuttly services. To get the Cuttly api key cre
 	
 	Output
 	- {
- 		 "short_url": "https://cutt.ly/oQK2mqt", 
+ 		 "short_url": "http://127.0.0.1:8080/rd/4CED7520B4D8", 
   		 "status": "Success"
 	  }
 
+
+	Note:- Here I am using localhost, change the ip address according to your ip for redirecting.
