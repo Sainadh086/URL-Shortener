@@ -3,7 +3,6 @@ import os
 import json
 from flask import Flask, request, jsonify, render_template, redirect, url_for
 import requests
-import datetime
 from werkzeug.wrappers import response
 
 app = Flask(__name__)
@@ -20,10 +19,9 @@ def check_url(url):
     json_file = open('url.txt','r')
     json_data = json.load(json_file)
     json_file.close()
-    print("*"*20)
-    print("url :", url)
     if url in json_data.keys():
-        return json_data[url]
+        short_url = "http://127.0.0.1:8080/"+json_data[url]
+        return short_url
     else:
         #creating random string for short url
         random_string = os.urandom(6)
@@ -48,8 +46,7 @@ def url_redirect(short_str):
     '''
     Taking the Shorturl as input and redirecting to original url
     '''
-    print("*"*20)
-    print(short_str)
+    
     #checking if the short url is present in the local file
     json_file = open('url.txt','r')
     json_data = json.load(json_file)

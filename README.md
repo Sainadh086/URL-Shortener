@@ -19,4 +19,3 @@
 	  }
 
 
-	Note:- Here I am using localhost, change the ip address according to your ip for redirecting.
