@@ -77,8 +77,8 @@ def short_url(url='',method=None):
             #header = request.headers
             #if header['Content-Type'] == 'application/json':
                 url = request.args.get('url')
-        else:
-            return jsonify({"error":"Method type must be GET"})
+        #else:
+         #   return jsonify({"error":"Method type must be GET"})
     except:
         pass
     shorten_link = check_obj.get_url_status(url)
@@ -100,11 +100,11 @@ def web_page():
     if request.method == 'POST':
         #getting long url from the webpage
         long_url = request.form.get('long_url')
-        print("long_url :", long_url)
         #sending the request to shorten the url
         response = short_url(url=long_url,method="GET")
         #checking the status of the response
         data = json.loads(response.get_data().decode("utf-8"))
+        
         if data['short_url']:
             return render_template('home.html', status=True, shortend_url=data['short_url'])
         else:
@@ -113,4 +113,4 @@ def web_page():
     return render_template('home.html', status=status)
 
 if __name__=="__main__":
-    app.run(host="0.0.0.0", port=8080, debug=False)
+    app.run(host="0.0.0.0", port=8080)
